@@ -2,34 +2,43 @@
 
 const etchASketch = document.querySelector('.etchASketch');
 
-// Header 
-const header = document.createElement('div');
-header.classList.add('header');
-etchASketch.append(header);
-// Title 
-const title = document.createElement('div');
-title.classList.add('title');
-header.append(title);
-// Description
-const description = document.createElement('div');
-description.classList.add('description');
-header.append(description);
+const header = createDiv('header', etchASketch);
+const title = createDiv('title', header);
+const description = createDiv('description', header);
+
+const gridContainer = createDiv('gridContainer', etchASketch);
+const controlPanel = createDiv('controlPanel', etchASketch);
+
+let size = 10;
 
 
-// Grid Container DOM
-const gridContainer = document.createElement('div');
-gridContainer.classList.add('gridContainer');
-etchASketch.append(gridContainer);
-
-
-// Control Panel DOM
-const controlPanel = document.createElement('div');
-controlPanel.classList.add('controlPanel');
-etchASketch.append(controlPanel);
-
-
-
-
+// Create Button to reset 
+// Create Slider to pick size - give value to gridCreate()
+//         - displays the px x px size overhead 
+// Create Color Picker 
+//         - have a display that you click and shows an rbg color picker winow (check michalosman on community projects)
+// Create Reset button
+// 
+// 
+// 
 
 // Fucntions 
+// DOM Div Function
+function createDiv(className, parent ){
+  const div = document.createElement('div');
+  div.classList.add(className);
+  parent.append(div)
+  return div
+}
 
+// Create gridRow 
+function gridCreate() {
+  for (let i = 0; i < size; i++) {
+    const gridRow = createDiv('gridRow', gridContainer);
+    for (let k = 0; k < size; k++) {
+      createDiv('gridColumn', gridRow);
+    }
+  }
+}
+
+gridCreate()
