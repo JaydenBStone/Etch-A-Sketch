@@ -9,13 +9,12 @@ const description = createDiv('description', header);
 const gridContainer = createDiv('gridContainer', etchASketch);
 const controlPanel = createDiv('controlPanel', etchASketch);
 
-
-
-// Fucntions 
+const sliderDiv = createDiv('sliderDiv', controlPanel)
+const buttonDiv = createDiv('buttonDiv', controlPanel)
 
 
 // DOM Div Function
-function createDiv(className, parent ){
+function createDiv(className, parent) {
   const div = document.createElement('div');
   div.classList.add(className);
   parent.append(div)
@@ -28,14 +27,17 @@ function gridCreate(gridSize) {
   for (let i = 0; i < gridSize; i++) {
     const gridRow = createDiv('gridRow', gridContainer);
     for (let k = 0; k < gridSize; k++) {
-      createDiv('gridColumn', gridRow);
+      const gridSquare = createDiv('gridSquare', gridRow);
+      gridSquare.addEventListener('mouseenter', () => {
+        gridSquare.style.backgroundColor = 'black';
+      })
     }
   }
 }
 
 const sizeSlider = document.createElement('input');
 sizeSlider.classList.add('sizeSlider');
-controlPanel.append(sizeSlider)
+sliderDiv.append(sizeSlider)
 
 sizeSlider.type = 'range';
 sizeSlider.value = 16;
@@ -43,9 +45,31 @@ sizeSlider.min = 2;
 sizeSlider.max = 32;
 
 // input also works instead of change if you want the grid to show changes as its happening not after release 
-sizeSlider.addEventListener ('change', () => {
-  const gridSize = sizeSlider.value;
+sizeSlider.addEventListener('change', () => {
+  const gridSize = Number(sizeSlider.value);
   gridCreate(gridSize);
 })
 
 gridCreate(sizeSlider.value)
+
+
+// Reset Button
+const resetButton = document.createElement('button');
+resetButton.classList.add('resetButton');
+resetButton.textContent = 'ResetGrid'
+buttonDiv.append(resetButton);
+
+resetButton.addEventListener('click', () => {
+  sizeSlider.value = 16;
+  gridCreate(Number(sizeSlider.value));
+})
+
+// Clear Button
+const clearButton = document.createElement('button');
+clearButton.classList.add('clearButton');
+clearButton.textContent = 'ClearGrid'
+buttonDiv.append(clearButton);
+
+clearButton.addEventListener('click', () => {
+   gridCreate(Number(sizeSlider.value));
+})
