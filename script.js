@@ -9,20 +9,11 @@ const description = createDiv('description', header);
 const gridContainer = createDiv('gridContainer', etchASketch);
 const controlPanel = createDiv('controlPanel', etchASketch);
 
-let size = 10;
 
-
-// Create Button to reset 
-// Create Slider to pick size - give value to gridCreate()
-//         - displays the px x px size overhead 
-// Create Color Picker 
-//         - have a display that you click and shows an rbg color picker winow (check michalosman on community projects)
-// Create Reset button
-// 
-// 
-// 
 
 // Fucntions 
+
+
 // DOM Div Function
 function createDiv(className, parent ){
   const div = document.createElement('div');
@@ -31,14 +22,30 @@ function createDiv(className, parent ){
   return div
 }
 
-// Create gridRow 
-function gridCreate() {
-  for (let i = 0; i < size; i++) {
+// Create Grid & Size Slider 
+function gridCreate(gridSize) {
+  gridContainer.innerHTML = '';
+  for (let i = 0; i < gridSize; i++) {
     const gridRow = createDiv('gridRow', gridContainer);
-    for (let k = 0; k < size; k++) {
+    for (let k = 0; k < gridSize; k++) {
       createDiv('gridColumn', gridRow);
     }
   }
 }
 
-gridCreate()
+const sizeSlider = document.createElement('input');
+sizeSlider.classList.add('sizeSlider');
+controlPanel.append(sizeSlider)
+
+sizeSlider.type = 'range';
+sizeSlider.value = 16;
+sizeSlider.min = 2;
+sizeSlider.max = 32;
+
+// input also works instead of change if you want the grid to show changes as its happening not after release 
+sizeSlider.addEventListener ('change', () => {
+  const gridSize = sizeSlider.value;
+  gridCreate(gridSize);
+})
+
+gridCreate(sizeSlider.value)
