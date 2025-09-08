@@ -11,6 +11,9 @@ const controlPanel = createDiv('controlPanel', etchASketch);
 
 const sliderDiv = createDiv('sliderDiv', controlPanel)
 const buttonDiv = createDiv('buttonDiv', controlPanel)
+const pickerDiv = createDiv('pickerDiv', controlPanel);
+let currentColor = '#000000'; // default black
+
 
 
 // DOM Div Function
@@ -29,12 +32,13 @@ function gridCreate(gridSize) {
     for (let k = 0; k < gridSize; k++) {
       const gridSquare = createDiv('gridSquare', gridRow);
       gridSquare.addEventListener('mouseenter', () => {
-        gridSquare.style.backgroundColor = 'black';
+        gridSquare.style.backgroundColor = currentColor;
       })
     }
   }
 }
 
+// sizeSlider input 
 const sizeSlider = document.createElement('input');
 sizeSlider.classList.add('sizeSlider');
 sliderDiv.append(sizeSlider)
@@ -52,6 +56,17 @@ sizeSlider.addEventListener('change', () => {
 
 gridCreate(sizeSlider.value)
 
+
+// colorPicker input 
+const colorPicker = document.createElement('input');
+colorPicker.classList.add('colorPicker');
+colorPicker.type = 'color';
+colorPicker.value = '#000000'
+pickerDiv.append(colorPicker)
+
+colorPicker.addEventListener('input', () => {
+  currentColor = colorPicker.value;
+})
 
 // Reset Button
 const resetButton = document.createElement('button');
