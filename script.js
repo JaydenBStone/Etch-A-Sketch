@@ -10,11 +10,12 @@ const gridContainer = createDiv('gridContainer', etchASketch);
 const controlPanel = createDiv('controlPanel', etchASketch);
 
 const sliderDiv = createDiv('sliderDiv', controlPanel)
+const sliderValueDislpay = createDiv('sliderValueDislpay', sliderDiv)
 const buttonDiv = createDiv('buttonDiv', controlPanel)
 const pickerDiv = createDiv('pickerDiv', controlPanel);
 let currentColor = '#000000'; // default black
 
-
+title.textContent = 'Etch-A-Sketch'
 
 // DOM Div Function
 function createDiv(className, parent) {
@@ -52,9 +53,13 @@ sizeSlider.max = 32;
 sizeSlider.addEventListener('change', () => {
   const gridSize = Number(sizeSlider.value);
   gridCreate(gridSize);
+  sliderValue = sliderValueDislpay.textContent = `${sizeSlider.value} x ${sizeSlider.value}`;
 })
 
 gridCreate(sizeSlider.value)
+
+// Display Slider Value
+let sliderValue = sliderValueDislpay.textContent = `${sizeSlider.value} x ${sizeSlider.value}`;
 
 
 // colorPicker input 
@@ -77,6 +82,9 @@ buttonDiv.append(resetButton);
 resetButton.addEventListener('click', () => {
   sizeSlider.value = 16;
   gridCreate(Number(sizeSlider.value));
+  currentColor ='#000000';
+  colorPicker.value = '#000000'
+  sliderValue = sliderValueDislpay.textContent = `${sizeSlider.value} x ${sizeSlider.value}`;
 })
 
 // Clear Button
